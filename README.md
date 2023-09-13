@@ -1,3 +1,24 @@
+[![codecov](https://codecov.io/gh/TXC/cors-psr7/graph/badge.svg?token=7zUJ2oZf38)](https://codecov.io/gh/TXC/cors-psr7)
+[![License](https://img.shields.io/github/license/TXC/cors-psr7.svg)](https://packagist.org/packages/txc/cors-psr7)
+
+## Why This Fork?
+
+Since [neomerx/cors-psr7](https://github.com/neomerx/cors-psr7) doesn't support PHP 8.1+ i forked and updated it to do so.
+
+This package is replacing [neomerx/cors-psr7](https://github.com/neomerx/cors-psr7), so usage with for example [middlewares/cors](https://github.com/middlewares/cors/) should only require you to include this package.
+
+```json
+{
+  "require": {
+    ...
+    "txc/cors-psr7": "^1.0",
+    "middlewares/cors": "^2.0",
+    ...
+  },
+}
+```
+
+
 [![Code Coverage](https://scrutinizer-ci.com/g/neomerx/cors-psr7/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/neomerx/cors-psr7/?branch=master)
 [![License](https://img.shields.io/packagist/l/neomerx/cors-psr7.svg)](https://packagist.org/packages/neomerx/cors-psr7)
 
