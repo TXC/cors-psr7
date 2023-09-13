@@ -5,24 +5,37 @@ inputs:
     description: Whether to install dev dependencies (yes/no)
     required: false
     default: no
+  php-version:
+    description: "What version of PHP to use"
+    default: latest
+    required: false
 runs:
   using: composite
   steps:
+    - name: Validate composer.json and composer.lock
+      uses: php-actions/composer@v6
+      with:
+        command: validate
+        php_version: ${{ inputs.php-version }}
+
     - name: Cache vendor directory
       id: cache-vendor
       uses: actions/cache@v3
       with:
         path: vendor
-        key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}-dev-${{ inputs.with-dev }}
+        key: ${{ runner.os }}-php-${{ inputs.php-version }}-vendor-${{ hashFiles('**/composer.lock') }}-dev-${{ inputs.with-dev }}
+        restore-keys: ${{ runner.os }}-php-${{ inputs.php-version }}-vendor-
 
     - if: ${{ steps.cache-vendor.outputs.cache-hit == false }}
       name: Cache composer cache
       uses: actions/cache@v3
       with:
         path: /tmp/composer-cache
-        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        key: ${{ runner.os }}-php-${{ inputs.php-version }}-composer-${{ hashFiles('**/composer.lock') }}
 
     - if: ${{ steps.cache-vendor.outputs.cache-hit == false }}
       uses: php-actions/composer@v6
       with:
         dev: ${{ inputs.with-dev }}
+        php_version: ${{ inputs.php-version }}
+
